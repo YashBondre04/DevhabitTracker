@@ -1,7 +1,7 @@
 import os
 import google.generativeai as genai
 
-def generate_insight(metrics):
+def generate_insight(metrics, pattern):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         return "GEMINI_API_KEY is not set. Please set it in your .env file."
@@ -11,15 +11,21 @@ def generate_insight(metrics):
     # Use gemma-4-31b-it (Open Weights) which has free tier availability on this API key
     model = genai.GenerativeModel('gemma-4-31b-it')
     
-    prompt = f"""
-    You are an expert productivity coach for software engineers. The user spent a total of {metrics.get('total_active_minutes')} minutes active today. 
-    Their most used app was {metrics.get('most_used_app')}. 
-    Their distraction percentage (time spent on non-work apps) was {metrics.get('distraction_percentage')}%. 
+    evidence_str = "; ".join(pattern.get("evidence", []))
     
-    Based on this data, provide a 2-3 sentence genuinely useful observation or piece of advice that they could not immediately see on their own.
-    Do not just state the numbers back to them. Be professional, concise, and do not use markdown formatting.
-    CRITICAL: Output ONLY the final 2-3 sentence advice. Do NOT include any of your reasoning, thinking process, constraints, or drafts. Start directly with the advice.
-    """
+    prompt = f"""You are a productivity analyst for software engineers. A rule-based system detected a "{pattern.get('type')}" pattern in a user's work session.
+
+Evidence:
+{chr(10).join('- ' + e for e in pattern.get('evidence', []))}
+
+Supporting data:
+- {metrics.get('context_switches')} context switches across {round(metrics.get('total_active_minutes', 0) / 60, 1)} hours
+- Longest uninterrupted focus block: {metrics.get('longest_focus_session')} minutes
+- Average focus session: {metrics.get('average_focus_duration')} minutes
+- Most used app: {metrics.get('most_used_app')}
+
+Correlate the evidence with the context switches and focus duration to explain a behavioral cause the user cannot see by looking at raw numbers alone. Then suggest one specific, actionable change. Write exactly 2 sentences. Do not repeat percentages or restate the data. No markdown.
+CRITICAL: Output ONLY the 2 sentences. No thinking, no drafts, no preamble."""
     
     try:
         response = model.generate_content(prompt)

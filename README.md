@@ -21,8 +21,29 @@ By correlating hard metrics (e.g., total active time, distraction percentages) w
 ## Features
 
 - Hybrid Analysis Engine using deterministic Python logic and Google Gemini API
+- Pattern Detection with 5 behavioral classifications and human-readable evidence
+- 4-step pipeline: `Data → Metrics → Pattern Detection → LLM Insight`
 - Stateless Architecture for zero-setup execution
 - Containerized via Docker
+
+## Architecture
+
+```
+POST /api/analyze-activity
+        │
+        ▼
+┌─────────────────────┐
+│  rule_engine.py      │
+│  calculate_metrics() │  ← Pure Python math (no LLM)
+│  detect_patterns()   │  ← Classifies behavior with evidence
+└────────┬────────────┘
+         ▼
+┌─────────────────────┐
+│  llm_service.py      │
+│  generate_insight()  │  ← Gemini API explains the pattern
+└────────┬────────────┘
+         ▼
+    JSON Response
 
 ## Installation
 
@@ -91,11 +112,22 @@ Invoke-RestMethod -Uri "http://localhost:5001/api/analyze-activity" -Method Post
 {
     "status": "success",
     "rule_based_metrics": {
-        "distraction_percentage": 23.08,
+        "total_active_minutes": 205,
         "most_used_app": "VS Code",
-        "total_active_minutes": 195
+        "distraction_percentage": 34.15,
+        "context_switches": 6,
+        "focus_sessions": 3,
+        "average_focus_duration": 45.0,
+        "longest_focus_session": 115
     },
-    "useful_insight": "Capitalize on your momentum in VS Code by implementing focus tools to lower your 23% distraction rate. Reducing these interruptions will allow you to reach a deeper state of flow during your active sessions."
+    "pattern_detected": {
+        "type": "high_distraction",
+        "evidence": [
+            "34.15% of active time spent on non-work apps",
+            "Only 65.8% of session was productive"
+        ]
+    },
+    "useful_insight": "Your productivity loss is caused by prolonged off-task loops following a single transition rather than frequent multitasking. Install a website blocker with timed intervals to prevent isolated shifts from becoming extended detours."
 }
 ```
 

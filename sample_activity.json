@@ -1,7 +1,11 @@
 {
   "activities": [
-    {"timestamp": "2026-06-18T09:00:00", "app": "VS Code", "duration_minutes": 120},
-    {"timestamp": "2026-06-18T11:00:00", "app": "Twitter", "duration_minutes": 45},
-    {"timestamp": "2026-06-18T11:45:00", "app": "GitHub", "duration_minutes": 30}
+    {"timestamp": "2026-06-18T09:00:00", "app": "VS Code", "duration_minutes": 90},
+    {"timestamp": "2026-06-18T10:30:00", "app": "Chrome StackOverflow", "duration_minutes": 25},
+    {"timestamp": "2026-06-18T10:55:00", "app": "YouTube", "duration_minutes": 40},
+    {"timestamp": "2026-06-18T11:35:00", "app": "Discord", "duration_minutes": 20},
+    {"timestamp": "2026-06-18T11:55:00", "app": "VS Code", "duration_minutes": 15},
+    {"timestamp": "2026-06-18T12:10:00", "app": "Twitter", "duration_minutes": 10},
+    {"timestamp": "2026-06-18T12:20:00", "app": "VS Code", "duration_minutes": 5}
   ]
 }
