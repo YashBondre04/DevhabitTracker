@@ -21,7 +21,7 @@ By correlating hard metrics (e.g., total active time, distraction percentages) w
 ## Features
 
 - Hybrid Analysis Engine using deterministic Python logic and Google Gemini API
-- Pattern Detection with 5 behavioral classifications and human-readable evidence
+- Pattern Detection with 5 behavioral classifications (`fragmented_workflow`, `high_distraction`, `burnout_cycle`, `deep_focus`, `moderate_productivity`) and human-readable evidence
 - 4-step pipeline: `Data → Metrics → Pattern Detection → LLM Insight`
 - Stateless Architecture for zero-setup execution
 - Containerized via Docker
@@ -44,6 +44,7 @@ POST /api/analyze-activity
 └────────┬────────────┘
          ▼
     JSON Response
+```
 
 ## Installation
 
