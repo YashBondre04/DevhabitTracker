@@ -1,0 +1,7 @@
+{
+  "activities": [
+    {"timestamp": "2026-06-18T09:00:00", "app": "VS Code", "duration_minutes": 120},
+    {"timestamp": "2026-06-18T11:00:00", "app": "Twitter", "duration_minutes": 45},
+    {"timestamp": "2026-06-18T11:45:00", "app": "GitHub", "duration_minutes": 30}
+  ]
+}
