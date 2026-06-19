@@ -70,7 +70,8 @@ def detect_patterns(metrics):
     longest = metrics["longest_focus_session"]
     hours = round(total / 60, 1)
 
-    # Determine the dominant pattern based on thresholds
+    # Classify user behavior into one of 5 distinct productivity patterns
+    # based on heuristic thresholds to prevent LLM hallucination
     if switches >= 5 and avg_focus < 40:
         pattern_type = "fragmented_workflow"
         evidence.append(f"{switches} context switches in {hours} hours")

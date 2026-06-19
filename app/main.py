@@ -1,4 +1,3 @@
-import os
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
@@ -38,16 +37,10 @@ def analyze_activity():
             "useful_insight": "You haven't logged any activities today. Start working to get some insights!"
         }), 200
 
-    # 1. Rule-based logic
     metrics = calculate_metrics(activities)
-    
-    # 2. Pattern detection (bridges rule engine and LLM)
     pattern = detect_patterns(metrics)
-    
-    # 3. LLM logic (receives both metrics and detected pattern)
     insight = generate_insight(metrics, pattern)
     
-    # 4. Format output
     return jsonify({
         "status": "success",
         "rule_based_metrics": metrics,
