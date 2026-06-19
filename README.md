@@ -33,14 +33,14 @@ POST /api/analyze-activity
         │
         ▼
 ┌─────────────────────┐
-│  rule_engine.py      │
-│  calculate_metrics() │  ← Pure Python math (no LLM)
-│  detect_patterns()   │  ← Classifies behavior with evidence
+│ rule_engine.py      │
+│ calculate_metrics() │  ← Pure Python math (no LLM)
+│ detect_patterns()   │  ← Classifies behavior with evidence
 └────────┬────────────┘
          ▼
 ┌─────────────────────┐
-│  llm_service.py      │
-│  generate_insight()  │  ← Gemini API explains the pattern
+│ llm_service.py      │
+│ generate_insight()  │  ← Gemini API explains the pattern
 └────────┬────────────┘
          ▼
     JSON Response
