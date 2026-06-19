@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .env
 test_models.py
+interview_prep_notes.md
+PRD.md
